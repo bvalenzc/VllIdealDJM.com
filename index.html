@@ -879,8 +879,8 @@ function renderAdmin(){
     '<button class="btn btn-ghost mt16" data-action="resetAllVotes" style="border-color:var(--red);color:var(--red);">Reiniciar todos los votos</button>';
 }
 
-async function loadAdminData(){
-  state.adminLoading = true; render();
+async function loadAdminData(silent){
+  if(!silent){ state.adminLoading = true; render(); }
   const ideals = await getAllIdeal();
   state.adminData = {ideals};
   state.adminLoading = false;
@@ -1064,8 +1064,8 @@ let adminPollInterval = null;
 function startAdminPolling(){
   if(adminPollInterval) clearInterval(adminPollInterval);
   adminPollInterval = setInterval(()=>{
-    if(state.screen==='admin' && !state.adminLoading) loadAdminData();
-  }, 8000);
+    if(state.screen==='admin' && !state.adminLoading) loadAdminData(true);
+  }, 12000);
 }
 
 function downloadIdealImage(){
